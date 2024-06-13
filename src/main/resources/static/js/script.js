@@ -67,9 +67,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (response.ok) {
                 modal.style.display = 'none';
-                window.location.href = "/";
+                window.location.reload();
             } else {
-                window.location.href = "/";
+                let loginError = document.getElementById("loginError");
+                loginError.innerText = "Ошибка авторизации";
             }
         } catch (error) {
             alert('An error occurred. Please try again.');
@@ -78,10 +79,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     regForm.onsubmit = async function (event) {
         event.preventDefault();
-
+        let regError = document.getElementById("regError");
         const login = document.getElementById('usernameReg').value;
         const password = document.getElementById('passwordReg').value;
         const passwordRepeat = document.getElementById('passwordRepeatReg').value;
+
+        if (password != passwordRepeat) {
+            regError.innerText = "Пароли не совпадают";
+            return;
+        }
 
         try {
             const response = await fetch('http://localhost:8080/register', {
@@ -92,13 +98,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify({ login, password })
             });
 
-            const data = await response.json();
+            const data = await response.text();
 
             if (response.ok) {
-                alert('Reg successful!');
+                alert('Аккаунт успешно создан!');
                 modal.style.display = 'none';
+                window.location.reload();
             } else {
-                alert(`Error: ${data.message}`);
+                regError.innerText = data;
             }
         } catch (error) {
             alert('An error occurred. Please try again.');

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import ru.jafix.auto.service.CustomUserDetailsService;
 
 @Configuration
@@ -51,6 +52,7 @@ public class SecurityConfiguration {
                         .loginProcessingUrl("/login")
                         .usernameParameter("login")
                         .defaultSuccessUrl("/", true)
+                        .failureHandler(authenticationFailureHandler())
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -60,6 +62,11 @@ public class SecurityConfiguration {
                         .permitAll()
                 );
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
     }
 
     @Autowired
