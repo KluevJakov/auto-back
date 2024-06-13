@@ -10,4 +10,14 @@ public class MainController {
     public String main() {
         return "index.html";
     }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin.html";
+    }
+
+    @GetMapping("/user")
+    public String user() {
+        return "user.html";
+    }
 }

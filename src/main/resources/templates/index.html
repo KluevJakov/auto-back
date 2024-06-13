@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8" />
@@ -588,12 +588,20 @@
                                 <li class="t228__list_item" style="padding:0 15px 0 15px;"><a class="t-menu__link-item"
                                         href="#rec758468462" data-menu-submenu-hook=""
                                         data-menu-item-number="3">Отзывы</a></li>
-                                <li class="t228__list_item" style="padding:0 15px;"><a class="t-menu__link-item"
+                                <li class="t228__list_item" style="padding:0 15px;"
+                                    sec:authorize="!isAuthenticated()"><a class="t-menu__link-item"
                                     href="#" id="openModalBtn" data-menu-submenu-hook=""
                                     data-menu-item-number="4">Авторизация</a></li>
-                                <li class="t228__list_item" style="padding:0 0 0 15px;"><a class="t-menu__link-item"
+                                <li class="t228__list_item" style="padding:0 15px;"
+                                    sec:authorize="!isAuthenticated()"><a class="t-menu__link-item"
                                     href="#" id="regModalBtn" data-menu-submenu-hook=""
                                     data-menu-item-number="5">Регистрация</a></li>
+                                <li class="t228__list_item" style="padding:0 0 0 15px;"
+                                    sec:authorize="isAuthenticated()"><a class="t-menu__link-item"
+                                    href="/logout" id="logoutBtn" data-menu-submenu-hook=""
+                                    data-menu-item-number="6">Деавторизация</a></li>
+                                Authenticated username:
+                                <div sec:authentication="name"></div>
                             </ul>
                         </nav>
                     </div>

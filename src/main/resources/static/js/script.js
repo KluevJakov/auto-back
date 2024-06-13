@@ -54,15 +54,19 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('password').value;
 
         try {
-            const response = await fetch('https://your-backend-endpoint.com/api/login', {
+            let formData = new FormData();
+            formData.append('login', username);
+            formData.append('password', password);
+
+            const response = await fetch('http://localhost:8080/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password })
+                body: formData
             });
 
-            const data = await response.json();
+            const data = await response.text();
 
             if (response.ok) {
                 alert('Login successful!');
@@ -78,23 +82,23 @@ document.addEventListener('DOMContentLoaded', function () {
     regForm.onsubmit = async function (event) {
         event.preventDefault();
 
-        const username = document.getElementById('usernameReg').value;
+        const login = document.getElementById('usernameReg').value;
         const password = document.getElementById('passwordReg').value;
         const passwordRepeat = document.getElementById('passwordRepeatReg').value;
 
         try {
-            const response = await fetch('https://your-backend-endpoint.com/api/login', {
+            const response = await fetch('http://localhost:8080/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ login, password })
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                alert('Login successful!');
+                alert('Reg successful!');
                 modal.style.display = 'none';
             } else {
                 alert(`Error: ${data.message}`);

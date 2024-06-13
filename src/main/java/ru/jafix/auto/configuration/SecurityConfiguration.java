@@ -33,12 +33,22 @@ public class SecurityConfiguration {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/**","/resources/**", "/static/**").permitAll()
-                        .requestMatchers("/users/**").hasAuthority("ADMIN")
+                        .requestMatchers("/",
+                                "/css/**",
+                                "/js/**",
+                                "/files/**",
+                                "/login/**",
+                                "/images/**",
+                                "/resources/**",
+                                "/static/**",
+                                "/register").permitAll()
+                        .requestMatchers("/admin").hasAuthority("ADMIN")
+                        .requestMatchers("/user").hasAuthority("USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/")
+                        .loginProcessingUrl("/login")
                         .usernameParameter("login")
                         .permitAll()
                 )
