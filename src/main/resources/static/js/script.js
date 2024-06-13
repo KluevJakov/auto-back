@@ -60,13 +60,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const response = await fetch('http://localhost:8080/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
                 body: formData
             });
 
-            const data = await response.text();
+            const data = await response.json();
 
             if (response.ok) {
                 alert('Login successful!');

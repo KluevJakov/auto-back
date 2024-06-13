@@ -50,10 +50,12 @@ public class SecurityConfiguration {
                         .loginPage("/")
                         .loginProcessingUrl("/login")
                         .usernameParameter("login")
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
+                        .deleteCookies("JSESSIONID")
                         .logoutSuccessUrl("/")
                         .permitAll()
                 );
