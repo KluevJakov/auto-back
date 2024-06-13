@@ -63,13 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: formData
             });
 
-            const data = await response.json();
+            const data = await response.text();
 
             if (response.ok) {
-                alert('Login successful!');
                 modal.style.display = 'none';
+                window.location.href = "/";
             } else {
-                alert(`Error: ${data.message}`);
+                window.location.href = "/";
             }
         } catch (error) {
             alert('An error occurred. Please try again.');
