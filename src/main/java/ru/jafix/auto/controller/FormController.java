@@ -1,5 +1,6 @@
 package ru.jafix.auto.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,18 @@ public class FormController {
         formRequestDTO.setTo(params.get("Куда"));
         formRequestDTO.setCargoWeight(params.get("Вес груза"));
         formRequestDTO.setCargoVolume(params.get("Объем груза"));
+
+        if (params.containsKey("tildapayment")) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                FormRequestDTO.TildaPayment tildapayment = objectMapper.readValue(params.get("tildapayment"),
+                        FormRequestDTO.TildaPayment.class);
+                formRequestDTO.setTildapayment(tildapayment);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.badRequest().body("Invalid tildapayment format");
+            }
+        }
 
         // Обработка полученных данных
         System.out.println("Form Name: " + formRequestDTO.getTildaSpecFormName());
