@@ -50,11 +50,17 @@
             orders.forEach(order => {
                 const row = document.createElement('tr');
 
+                let cnt = 0;
                 Object.values(order).forEach(text => {
                     const cell = document.createElement('td');
                     cell.textContent = text;
                     row.appendChild(cell);
+                    cnt++;
                 });
+
+                if (cnt > 0) {
+                    row.removeChild(row.lastElementChild);
+                }
 
                 const actionCell = document.createElement('td');
                 const processButton = document.createElement('button');
