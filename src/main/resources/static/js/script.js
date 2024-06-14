@@ -13,13 +13,6 @@ Array.from(datas3).forEach((el) => {
     el.remove();
 });
 
-
-const datas4 = document.getElementsByClassName("t706__cartwin-totalamount-wrap");
-Array.from(datas4).forEach((el) => {
-    el.remove();
-});
-
-
 document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('modal');
     const modal2 = document.getElementById('modal2');
@@ -118,8 +111,14 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('An error occurred. Please try again.');
         }
     }
-});
 
+    const datas4 = document.getElementsByClassName("t706__cartwin-totalamount-wrap");
+    Array.from(datas4).forEach((el) => {
+        el.remove();
+    });
+
+});
+/**
 document.getElementById('form756843260').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -146,4 +145,4 @@ document.getElementById('form756843260').addEventListener('submit', function(eve
         console.error('Ошибка:', error);
         document.querySelector('.js-errorbox-all').style.display = 'block';
     });
-});
+});**/

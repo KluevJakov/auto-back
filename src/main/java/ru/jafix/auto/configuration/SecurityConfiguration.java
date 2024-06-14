@@ -44,7 +44,7 @@ public class SecurityConfiguration {
                                 "/static/**",
                                 "/register").permitAll()
                         .requestMatchers("/admin").hasAuthority("ADMIN")
-                        .requestMatchers("/user").hasAuthority("USER")
+                        .requestMatchers("/user", "/order/**").hasAuthority("USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
