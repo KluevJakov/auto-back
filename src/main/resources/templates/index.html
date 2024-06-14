@@ -596,12 +596,18 @@
                                     sec:authorize="!isAuthenticated()"><a class="t-menu__link-item"
                                     href="#" id="regModalBtn" data-menu-submenu-hook=""
                                     data-menu-item-number="5">Регистрация</a></li>
+                                <li class="t228__list_item" style="padding:0 15px;"
+                                    sec:authorize="hasAuthority('USER')"><a class="t-menu__link-item"
+                                    href="/user" data-menu-submenu-hook=""
+                                    data-menu-item-number="6">Личный кабинет</a></li>
+                                <li class="t228__list_item" style="padding:0 15px;"
+                                    sec:authorize="hasAuthority('ADMIN')"><a class="t-menu__link-item"
+                                    href="/admin" data-menu-submenu-hook=""
+                                    data-menu-item-number="6">Личный кабинет</a></li>
                                 <li class="t228__list_item" style="padding:0 0 0 15px;"
                                     sec:authorize="isAuthenticated()"><a class="t-menu__link-item"
                                     href="/logout" id="logoutBtn" data-menu-submenu-hook=""
-                                    data-menu-item-number="6">Деавторизация</a></li>
-                                Authenticated username:
-                                <div sec:authentication="name"></div>
+                                    data-menu-item-number="7">Деавторизация</a></li>
                             </ul>
                         </nav>
                     </div>

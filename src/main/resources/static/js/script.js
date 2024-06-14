@@ -13,6 +13,13 @@ Array.from(datas3).forEach((el) => {
     el.remove();
 });
 
+
+const datas4 = document.getElementsByClassName("t706__cartwin-totalamount-wrap");
+Array.from(datas4).forEach((el) => {
+    el.remove();
+});
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('modal');
     const modal2 = document.getElementById('modal2');
@@ -111,4 +118,32 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('An error occurred. Please try again.');
         }
     }
+});
+
+document.getElementById('form756843260').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Получаем значения полей формы
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
+    fetch('http://localhost:8080/order', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            document.querySelector('.js-successbox').style.display = 'block';
+        } else {
+            document.querySelector('.js-errorbox-all').style.display = 'block';
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        document.querySelector('.js-errorbox-all').style.display = 'block';
+    });
 });
