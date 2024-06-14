@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/order/")
 public class FormController {
 
     @PostMapping(consumes = "application/x-www-form-urlencoded")
