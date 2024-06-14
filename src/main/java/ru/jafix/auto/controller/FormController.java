@@ -76,6 +76,7 @@ public class FormController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         order.setUser(user);
+        order.setStatus("Не обработан");
         orderRepository.save(order);
 
         return ResponseEntity.ok("Form submitted successfully");
