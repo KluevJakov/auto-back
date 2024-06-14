@@ -6,8 +6,108 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!--metatextblock-->
     <title>Панель администратора</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<header class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Панель администратора</a>
+    <a class="navbar-brand" href="/">На главную</a>
+</header>
 
+<div class="container mt-5">
+    <h2>Список заказов</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Телефон</th>
+            <th>Откуда</th>
+            <th>Куда</th>
+            <th>Вес груза</th>
+            <th>Объем груза</th>
+            <th>Продукты</th>
+            <th>Статус заказа</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody id="ordersTableBody">
+        <!-- JavaScript will inject rows here -->
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const tableBody = document.getElementById('ordersTableBody');
+
+    fetch('http://localhost:8080/orders')
+        .then(response => response.json())
+        .then(orders => {
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+
+                Object.values(order).forEach(text => {
+                    const cell = document.createElement('td');
+                    cell.textContent = text;
+                    row.appendChild(cell);
+                });
+
+                const actionCell = document.createElement('td');
+                const processButton = document.createElement('button');
+                processButton.textContent = 'Обработать';
+                processButton.classList.add('btn', 'btn-primary');
+                processButton.onclick = () => processOrder(order.id);
+                actionCell.appendChild(processButton);
+                row.appendChild(actionCell);
+
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching orders:', error);
+            const row = document.createElement('tr');
+            const cell = document.createElement('td');
+            cell.colSpan = 9;
+            cell.textContent = 'Ошибка загрузки данных';
+            row.appendChild(cell);
+            tableBody.appendChild(row);
+        });
+});
+
+function processOrder(orderId) {
+    fetch(`http://localhost:8080/orders/${orderId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: 'Обработан' })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        alert(`Order ${orderId} processed successfully`);
+    })
+    .catch(error => {
+        console.error('Error processing order:', error);
+        alert('Ошибка обработки заказа');
+    });
+}
+</script>
+
+<style>
+    body {
+    }
+
+    header {
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+    }
+</style>
 </body>
 </html>
