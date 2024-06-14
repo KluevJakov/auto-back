@@ -117,6 +117,11 @@ document.addEventListener('DOMContentLoaded', function () {
         el.remove();
     });
 
+    let commitAction = document.getElementById("commitAction");
+    commitAction.addEventListener("click", function() {
+        alert("!");
+    });
+
 });
 /**
 document.getElementById('form756843260').addEventListener('submit', function(event) {
