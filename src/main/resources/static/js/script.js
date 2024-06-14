@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let commitAction = document.getElementById("commitAction");
     commitAction.addEventListener("click", function() {
-        alert("!");
+
     });
 
 });

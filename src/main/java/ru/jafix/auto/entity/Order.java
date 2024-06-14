@@ -1,6 +1,5 @@
 package ru.jafix.auto.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +28,7 @@ public class Order {
     private String cargoWeight;
     private String cargoVolume;
     private String products;
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
