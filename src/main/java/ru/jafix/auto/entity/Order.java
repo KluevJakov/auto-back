@@ -22,10 +22,13 @@ public class Order {
     private UUID id;
     private String name;
     private String phone;
+    @Column(name = "qfrom")
     private String from;
+    @Column(name = "qto")
     private String to;
     private String cargoWeight;
     private String cargoVolume;
+    private String products;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
